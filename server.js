@@ -1,5 +1,5 @@
 // Preload environmental variables in ES6
-import _ from '../env';
+import _ from './env';
 // Import for deployment
 import "core-js/stable";
 import "regenerator-runtime/runtime";
