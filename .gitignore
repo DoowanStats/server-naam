@@ -1,3 +1,14 @@
+# Custom dependencies
+client/node_modules/
+external/
+intermediates/
+
+# Scripts
+*.sh
+
+# Redis
+*.rdb
+
 # Logs
 logs
 *.log
@@ -40,6 +51,14 @@ build/Release
 # Dependency directories
 node_modules/
 jspm_packages/
+.pnp/
+.pnp.js
+
+# testing
+coverage/
+
+# production
+build/
 
 # TypeScript v1 declaration files
 typings/
@@ -69,7 +88,7 @@ typings/
 .yarn-integrity
 
 # dotenv environment variables file
-.env
+/.env
 .env.test
 
 # parcel-bundler cache (https://parceljs.org/)
@@ -102,3 +121,18 @@ dist
 
 # TernJS port file
 .tern-port
+
+# misc
+.DS_Store
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.sonarlint
+
+# Random tests
+test*
