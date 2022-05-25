@@ -1,0 +1,58 @@
+{
+  "name": "doowanstats-server",
+  "version": "1.0.0",
+  "description": "Backend server for the DoowanStats website.",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon --exec babel-node server.js --require dotenv/config",
+    "clean": "rm -rf build && mkdir build",
+    "build": "babel -d ./build ./ -s --ignore node_modules",
+    "eslint-server": "eslint \"server/**/*.js\""
+  },
+  "dependencies": {
+    "aws-sdk": "^2.843.0",
+    "axios": "^0.21.2",
+    "bcrypt": "^5.0.0",
+    "cookie-parser": "^1.4.5",
+    "core-js": "^3.9.0",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "express-http-to-https": "^1.1.4",
+    "hashids": "^2.2.8",
+    "jest": "^27.4.7",
+    "jsonwebtoken": "^8.5.1",
+    "moment-timezone": "^0.5.33",
+    "mysql": "^2.18.1",
+    "node-schedule": "^2.0.0",
+    "random-js": "^2.1.0",
+    "redis": "^3.1.1",
+    "regenerator-runtime": "^0.11.1",
+    "twisted": "^1.46.3"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.12.17",
+    "@babel/core": "^7.12.17",
+    "@babel/node": "^7.12.17",
+    "@babel/preset-env": "^7.12.17",
+    "@babel/runtime-corejs3": "^7.12.18",
+    "babel-core": "^7.0.0-bridge.0",
+    "eslint": "^6.6.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.23.4",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.24.0",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "nodemon": "^2.0.7"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoowanStats/DoowanStats-Server.git"
+  },
+  "author": "mrdoowan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DoowanStats/DoowanStats-Server/issues"
+  },
+  "homepage": "https://github.com/DoowanStats/DoowanStats-Server#readme"
+}
