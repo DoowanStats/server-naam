@@ -1,26 +1,14 @@
 {
-  "name": "lhg_server",
-  "version": "0.1.9",
-  "engines": {
-    "node": "12.x",
-    "npm": "7.x"
-  },
-  "description": "Prototype for Doowan Stats website",
+  "name": "doowanstats-server",
+  "version": "1.0.0",
+  "description": "Backend server for the DoowanStats website.",
   "main": "server.js",
   "scripts": {
-    "server": "nodemon --exec babel-node ./server/server.js --require dotenv/config",
-    "client": "cd client && npm start",
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "start": "nodemon --exec babel-node server.js --require dotenv/config",
     "clean": "rm -rf build && mkdir build",
-    "build-server": "babel -d ./build ./server -s",
-    "build": "npm run clean && npm run build-server",
-    "start": "node build/server.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm run build && npm cache clean --force && npm install --prefix client && npm run build --prefix client",
-    "eslint-client": "eslint \"client/src/**/*.js\"",
+    "build": "babel -d ./build ./ -s --ignore node_modules",
     "eslint-server": "eslint \"server/**/*.js\""
   },
-  "author": "mrdoowan",
-  "license": "MIT",
   "dependencies": {
     "aws-sdk": "^2.843.0",
     "axios": "^0.21.2",
@@ -49,7 +37,6 @@
     "@babel/preset-env": "^7.12.17",
     "@babel/runtime-corejs3": "^7.12.18",
     "babel-core": "^7.0.0-bridge.0",
-    "concurrently": "^5.3.0",
     "eslint": "^6.6.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.23.4",
@@ -57,5 +44,15 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "nodemon": "^2.0.7"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoowanStats/DoowanStats-Server.git"
+  },
+  "author": "mrdoowan",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/DoowanStats/DoowanStats-Server/issues"
+  },
+  "homepage": "https://github.com/DoowanStats/DoowanStats-Server#readme"
 }
