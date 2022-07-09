@@ -1,4 +1,4 @@
-FROM node:16-alpine
+FROM node:16-alpine AS builder
 
 WORKDIR /app
 COPY package.json ./
@@ -10,5 +10,11 @@ COPY . .
 RUN npm run build
 
 EXPOSE 5000
+
+FROM node:16-alpine
+
+WORKDIR /app
+
+COPY --from=builder /app/build .
 
 ENTRYPOINT [ "node", "./build/server.js" ]
