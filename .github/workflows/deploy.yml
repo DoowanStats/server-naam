@@ -12,7 +12,6 @@ on:
   
 env:
   GITHUB_SHA: ${{ github.sha }}
-  DIGITALOCEAN_ACCESS_TOKEN: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
   IMAGE_NAME: "doowanstats-server"
   DIGITALOCEAN_REGISTRY: ${{ secrets.DIGITALOCEAN_REGISTRY }}
 
@@ -35,7 +34,7 @@ jobs:
       - name: Install doctl
         uses: digitalocean/action-doctl@v2
         with:
-          token: $DIGITALOCEAN_ACCESS_TOKEN
+          token: ${{ secrets.DIGITALOCEAN_ACCESS_TOKEN }}
 
       - name: Log in to DigitalOcean Container Registry with short-lived credentials
         run: doctl registry login --expiry-seconds 600
