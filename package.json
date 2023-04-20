@@ -1,6 +1,10 @@
 {
   "name": "doowanstats-server",
   "version": "1.0.0",
+  "engines": {
+    "node": "17.x",
+    "npm": "8.x"
+  },
   "description": "Backend server for the DoowanStats website.",
   "main": "server.js",
   "scripts": {
@@ -17,17 +21,18 @@
     "core-js": "^3.9.0",
     "cors": "^2.8.5",
     "dotenv": "^8.2.0",
-    "express": "^4.17.1",
+    "express": "^4.18.2",
     "express-http-to-https": "^1.1.4",
     "hashids": "^2.2.8",
     "jest": "^27.4.7",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "moment-timezone": "^0.5.35",
     "mysql": "^2.18.1",
     "node-schedule": "^2.0.0",
     "random-js": "^2.1.0",
     "redis": "^3.1.1",
     "regenerator-runtime": "^0.11.1",
+    "replace-special-characters": "^1.2.7",
     "twisted": "^1.46.3"
   },
   "devDependencies": {
