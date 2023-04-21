@@ -10,7 +10,6 @@ import {
   getMatchData,
   getMatchSetup,
   postMatchNewSetup,
-  putMatchPlayerFix,
   deleteMatchData,
   getMatchSetupMap,
   putMatchSaveSetup,
@@ -21,7 +20,7 @@ import { submitMatchSetup } from '../../functions/apiV1/matchSubmit/matchSubmit'
 import { getTournamentId } from '../../functions/apiV1/tournamentData';
 import { authenticateJWT } from './dependencies/jwtHelper';
 import { getSeasonId, getSeasonInformation } from '../../functions/apiV1/seasonData';
-import { getRiotSummonerId } from '../../functions/apiV1/dependencies/awsLambdaHelper';
+import { getRiotSummonerData } from '../../functions/apiV1/dependencies/awsLambdaHelper';
 
 /*  
     ----------------------
@@ -63,22 +62,6 @@ matchV1Routes.get('/setup/data/:matchId', (req, res) => {
 //#endregion
 
 //#region POST / PUT / DELETE Requests - Match
-
-/**
- * Uses MySQL
- * @route   PUT api/match/v1/players/update
- * @desc    Fix Player assignment to champions
- * @access  Private (to Admins)
- */
-matchV1Routes.put('/players/update', authenticateJWT, (req, res) => {
-  const { playersToFix, matchId } = req.body;
-
-  console.log(`PUT Request Match '${matchId}' Players`);
-  putMatchPlayerFix(playersToFix, matchId).then((data) => {
-    if (data.error) { return res400sClientError(res, req, data.error); }
-    return res200sOK(res, req, data);
-  }).catch((err) => error500sServerError(err, res, "PUT Match Update Error."));
-});
 
 /**
  * @route   POST api/match/v1/setup/new/id
@@ -134,7 +117,7 @@ matchV1Routes.post('/setup/new/profile', (req, res) => {
 
   console.log(`POST Request Match New Setups in by summoner name '${summonerName}'`);
   getTournamentId(tournamentName).then((tournamentId) => {
-    getRiotSummonerId(summonerName).then((summonerData) => {
+    getRiotSummonerData(summonerName).then((summonerData) => {
       const { puuid } = summonerData;
       postNewMatchesByPuuid(puuid, date, week, tournamentId).then((data) => {
         if (data.errors.length > 0) { return error500sServerError(res, req, `POST Request New Setup Failed by puuid '${summonerName}'`, data.errors); }
