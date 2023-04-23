@@ -1,7 +1,7 @@
 FROM node:16-alpine AS builder
 
 WORKDIR /app
-COPY package.json ./
+COPY package*.json ./
 
 # for node-gyp    
 RUN apk add --no-cache python3 make g++
@@ -16,5 +16,6 @@ FROM node:16-alpine
 WORKDIR /app
 
 COPY --from=builder /app/build .
+COPY --from=builder /app/node_modules /node_modules
 
-ENTRYPOINT [ "node", "./build/server.js" ]
+ENTRYPOINT [ "node", "./server.js" ]
