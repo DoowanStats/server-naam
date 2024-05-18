@@ -1,0 +1,25 @@
+{
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit",
+    "source.fixAll.prettier": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "eslint.rules.customizations": [ // Error messages for code style are annoying
+    {
+      "rule": "@stylistic/*",
+      "severity": "off"
+    }
+  ],
+  "eslint.validate": [
+    "typescript"
+  ],
+  "editor.tabSize": 2,
+  "diffEditor.codeLens": true,
+  "javascript.referencesCodeLens.enabled": true,
+  "javascript.referencesCodeLens.showOnAllFunctions": true,
+  "typescript.referencesCodeLens.enabled": true,
+  "typescript.referencesCodeLens.showOnAllFunctions": true,
+  "typescript.implementationsCodeLens.enabled": true,
+  "typescript.implementationsCodeLens.showOnInterfaceMethods": true,
+  "jest.runMode": "on-demand"
+}
