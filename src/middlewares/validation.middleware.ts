@@ -1,7 +1,7 @@
+import { HttpException } from "@exceptions/httpException";
 import { plainToInstance } from "class-transformer";
 import { validateOrReject, ValidationError } from "class-validator";
 import { NextFunction, Request, Response } from "express";
-import { HttpException } from "@exceptions/httpException";
 
 /**
  * @name ValidationMiddleware
@@ -16,8 +16,7 @@ export const ValidationMiddleware = (
   skipMissingProperties = false,
   whitelist = false,
   forbidNonWhitelisted = false,
-) => {
-  return (req: Request, res: Response, next: NextFunction) => {
+) => (req: Request, res: Response, next: NextFunction) => {
     const dto = plainToInstance(type, req.body);
     validateOrReject(dto, { skipMissingProperties, whitelist, forbidNonWhitelisted })
       .then(() => {
@@ -31,4 +30,3 @@ export const ValidationMiddleware = (
         next(new HttpException(400, message));
       });
   };
-};

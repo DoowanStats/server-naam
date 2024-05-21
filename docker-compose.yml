@@ -26,6 +26,21 @@ services:
     networks:
       - backend
 
+  pg:
+    container_name: pg
+    image: postgres:alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: dev
+    volumes:
+      - ./src/database/init.sql:/docker-entrypoint-initdb.d/init.sql
+    restart: "always"
+    networks:
+      - backend
+
 networks:
   backend:
     driver: bridge

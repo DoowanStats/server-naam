@@ -1,61 +1,63 @@
-import {
-  Controller,
-  Param,
-  Body,
-  Get,
-  Post,
-  Put,
-  Delete,
-  HttpCode,
-  UseBefore,
-} from "routing-controllers";
-import { OpenAPI } from "routing-controllers-openapi";
-import { Container } from "typedi";
-import { CreateUserDto } from "@dtos/users.dto";
-import { User } from "@interfaces/users.interface";
-import { ValidationMiddleware } from "@middlewares/validation.middleware";
-import { UserService } from "@services/users.service";
+import { NextFunction, Request, Response } from 'express';
+import { Container } from 'typedi';
+import { User } from '@interfaces/users.interface';
+import { UserService } from '@services/users.service';
 
-@Controller()
 export class UserController {
-  public path = "/users";
   public user = Container.get(UserService);
 
-  @Get("/users")
-  @OpenAPI({ summary: "Return a list of users" })
-  async getUsers() {
-    const findAllUsersData: User[] = await this.user.findAllUser();
-    return { data: findAllUsersData, message: "findAll" };
-  }
+  public createUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userData: User = req.body;
+      const createUserData: User = await this.user.createUser(userData);
 
-  @Get("/users/:id")
-  @OpenAPI({ summary: "Return find a user" })
-  async getUserById(@Param("id") userId: number) {
-    const findOneUserData: User = await this.user.findUserById(userId);
-    return { data: findOneUserData, message: "findOne" };
-  }
+      res.status(201).json({ data: createUserData, message: 'created' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
-  @Post("/users")
-  @HttpCode(201)
-  @UseBefore(ValidationMiddleware(CreateUserDto))
-  @OpenAPI({ summary: "Create a new user" })
-  async createUser(@Body() userData: User) {
-    const createUserData: User = await this.user.createUser(userData);
-    return { data: createUserData, message: "created" };
-  }
+  public getUserById = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId: string = req.params.id;
+      const findOneUserData: User = await this.user.findUserById(userId);
 
-  @Put("/users/:id")
-  @UseBefore(ValidationMiddleware(CreateUserDto, true))
-  @OpenAPI({ summary: "Update a user" })
-  async updateUser(@Param("id") userId: number, @Body() userData: User) {
-    const updateUserData: User[] = await this.user.updateUser(userId, userData);
-    return { data: updateUserData, message: "updated" };
-  }
+      res.status(200).json({ data: findOneUserData, message: 'findOne' });
+    } catch (error) {
+      next(error);
+    }
+  };
 
-  @Delete("/users/:id")
-  @OpenAPI({ summary: "Delete a user" })
-  async deleteUser(@Param("id") userId: number) {
-    const deleteUserData: User[] = await this.user.deleteUser(userId);
-    return { data: deleteUserData, message: "deleted" };
-  }
+  public updateUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId: string = req.params.id;
+      const userData: User = req.body;
+      const updateUserData: User = await this.user.updateUser(userId, userData);
+
+      res.status(200).json({ data: updateUserData, message: 'updated' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public deleteUser = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const userId: string = req.params.id;
+      const deleteUserData = await this.user.deleteUser(userId);
+
+      res.status(200).json({ data: deleteUserData, message: 'deleted' });
+    } catch (error) {
+      next(error);
+    }
+  };
+
+  public getUsers = async (_req: Request, res: Response, next: NextFunction) => {
+    try {
+      const findAllUsersData: User[] = await this.user.findAllUser();
+
+      res.status(200).json({ data: findAllUsersData, message: 'findAll' });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
