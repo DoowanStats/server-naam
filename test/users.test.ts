@@ -1,7 +1,7 @@
 import request from 'supertest';
 import { App } from '@app';
 import { DI } from '@database';
-import { CreateUserDto } from '@dtos/users.dto';
+import { WriteUserParameter } from '@dtos/users.dto';
 import { UserRoute } from '@routes/users.route';
 
 const app = new App([new UserRoute()]);
@@ -31,7 +31,7 @@ describe('Testing Users', () => {
 
   describe('[POST] /users', () => {
     it('response Create User', async () => {
-      const userData: CreateUserDto = {
+      const userData: WriteUserParameter = {
         email: 'test@email.com',
         password: 'q1w2e3r4',
       };
@@ -47,7 +47,7 @@ describe('Testing Users', () => {
 
   describe('[PUT] /users/:id', () => {
     it('response Update User', async () => {
-      const userData: CreateUserDto = {
+      const userData: WriteUserParameter = {
         email: 'test1@email.com',
         password: 'q1w2e3r4',
       };
