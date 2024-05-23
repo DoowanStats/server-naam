@@ -1,4 +1,5 @@
 import { IsEmail, IsString, IsNotEmpty, MinLength, MaxLength } from "class-validator";
+import { UserEntity } from "@entities/users.entity";
 
 // ================
 // READ
@@ -6,23 +7,21 @@ import { IsEmail, IsString, IsNotEmpty, MinLength, MaxLength } from "class-valid
 
 export class UserDto {
   public id: string;
-  public createdAt: number;
-  public updatedAt: number;
+  public createdTimestamp: number;
+  public updatedTimestamp: number;
   public email: string;
   public password: string;
 
-  constructor(
-    id: string,
-    createdAt: number,
-    updatedAt: number,
-    email: string,
-    password: string
-  ) {
+  constructor(id: string, createdAt: number, updatedAt: number, email: string, password: string) {
     this.id = id;
-    this.createdAt = createdAt;
-    this.updatedAt = updatedAt;
+    this.createdTimestamp = createdAt;
+    this.updatedTimestamp = updatedAt;
     this.email = email;
     this.password = password;
+  }
+
+  static transformEntity(data: UserEntity) {
+    return new UserDto(data.id, data.created_at, data.updated_at, data.email, data.password);
   }
 }
 
@@ -40,10 +39,7 @@ export class WriteUserParameter {
   @MaxLength(32)
   public password: string;
 
-  constructor(
-    email: string,
-    password: string
-  ) {
+  constructor(email: string, password: string) {
     this.email = email;
     this.password = password;
   }

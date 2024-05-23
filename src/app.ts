@@ -1,19 +1,19 @@
-import 'reflect-metadata';
-import { MikroORM, RequestContext } from '@mikro-orm/core';
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import express from 'express';
-import helmet from 'helmet';
-import hpp from 'hpp';
-import morgan from 'morgan';
-import swaggerJSDoc from 'swagger-jsdoc';
-import swaggerUi from 'swagger-ui-express';
-import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
-import { DI, dbOptions } from '@database';
-import IRoute from '@interfaces/route.interface';
-import { ErrorMiddleware } from '@middlewares/error.middleware';
-import { logger, stream } from '@utils/logger';
+import { MikroORM, RequestContext } from "@mikro-orm/core";
+import compression from "compression";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import express from "express";
+import helmet from "helmet";
+import hpp from "hpp";
+import morgan from "morgan";
+import swaggerJSDoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
+import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from "@config";
+import { DI, dbConfig } from "@database";
+import { UserEntity } from "@entities/users.entity";
+import { IRoute } from "@interfaces/route.interface";
+import { ErrorMiddleware } from "@middlewares/error.middleware";
+import { logger, stream } from "@utils/logger";
 
 export class App {
   public app: express.Application;
@@ -22,7 +22,7 @@ export class App {
 
   constructor(routes: IRoute[]) {
     this.app = express();
-    this.env = NODE_ENV || 'development';
+    this.env = NODE_ENV || "development";
     this.port = PORT || 3000;
 
     this.connectToDatabase();
@@ -47,8 +47,9 @@ export class App {
 
   private async connectToDatabase() {
     try {
-      DI.orm = await MikroORM.init(dbOptions);
+      DI.orm = await MikroORM.init(dbConfig);
       DI.em = DI.orm.em;
+      DI.user = DI.em.getRepository(UserEntity);
     } catch (error) {
       logger.error(error);
     } finally {
@@ -69,7 +70,7 @@ export class App {
 
   private initializeRoutes(routes: IRoute[]) {
     routes.forEach(route => {
-      this.app.use('/', route.router);
+      this.app.use("/", route.router);
     });
   }
 
@@ -78,16 +79,16 @@ export class App {
       swaggerDefinition: {
         openapi: "3.1.0",
         info: {
-          title: 'REST API',
-          version: '1.0.0',
-          description: 'Example docs',
+          title: "REST API",
+          version: "1.0.0",
+          description: "Example docs",
         },
       },
-      apis: ['./swagger/*.yaml'],
+      apis: ["./swagger/*.yaml"],
     };
 
     const specs = swaggerJSDoc(options);
-    this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
   }
 
   private initializeErrorHandling() {

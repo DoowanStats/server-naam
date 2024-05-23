@@ -1,9 +1,9 @@
 /**
  * Services encapsulate the core business logic that interacts directly with
- * the data access layer. Each table in the database will have its own service
- * application layer.
+ * the database access layer. Each table in the database will have its own
+ * service application to manage persistent storage.
  */
-export default interface IService {
+export interface IService {
   /**
    * Inserts a record into the database.
    *
@@ -46,11 +46,4 @@ export default interface IService {
    * @returns A list of (UUID, name) pairs for each record.
    */
   listRecords?(id: string): Promise<any>;
-
-  /**
-   * Gets UUID and name pairs of all records in the database table.
-   *
-   * @returns A list of (UUID, name) pairs for each record.
-   */
-  allRecords?(): Promise<any>;
 }

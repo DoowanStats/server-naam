@@ -13,6 +13,7 @@
   "eslint.validate": [
     "typescript"
   ],
+  "eslint.nodePath": "/node_modules",
   "editor.tabSize": 2,
   "diffEditor.codeLens": true,
   "javascript.referencesCodeLens.enabled": true,

@@ -40,3 +40,7 @@ clean: ## Clean the images
 
 remove: ## Remove the volumes
 	docker volume rm -f ${APP_NAME}
+
+#-- Database
+db: ## Create only the local database
+	docker-compose up -d pg
