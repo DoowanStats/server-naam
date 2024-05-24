@@ -24,8 +24,8 @@ export const dbConfig: Options = {
   dbName: POSTGRESQLCONNSTR_DB,
   host: POSTGRESQLCONNSTR_HOST,
   port: parseInt(POSTGRESQLCONNSTR_PORT!, 10),
-  entities: ["dist/**/*.entity.js"],
-  entitiesTs: ["src/**/*.entity.ts"],
+  entities: ["dist/src/entities/*.entity.js"],
+  entitiesTs: ["src/entities/*.entity.ts"],
   metadataProvider: TsMorphMetadataProvider,
   debug: NODE_ENV === "dev",
 };

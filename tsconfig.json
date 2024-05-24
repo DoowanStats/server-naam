@@ -6,9 +6,9 @@
     "lib": ["es6", "es2021"],
     "module": "commonjs",
     "noEmit": false,
-    "outDir": "dist",
     "sourceMap": true,
     "target": "es2021",
+    "outDir": "./dist",
     "baseUrl": "./src",
     "esModuleInterop": true,
     "moduleResolution": "node",
@@ -45,8 +45,8 @@
     "noUnusedParameters": true,
     "pretty": true,
     "allowSyntheticDefaultImports": true,
-    "importHelpers": true,
+    "importHelpers": true
   },
   "include": ["src/**/*.ts", "types/**/*.d.ts", "src/**/*.json", "test/**/*.ts"],
-  "exclude": ["node_modules", "src/logs"]
+  "exclude": ["node_modules", "src/logs", "dist"]
 }
