@@ -1,0 +1,18 @@
+# Default
+**/.git
+**/.svn
+**/.hg
+**/.husky
+**/.vscode
+**/node_modules
+
+# Ignore artifacts
+**/dist
+**/log
+
+# Ignore all HTML files
+**/*.html
+
+# Ignore all YAML files
+**/*.yaml
+**/*.yml
