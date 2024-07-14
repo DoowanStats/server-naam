@@ -20,9 +20,9 @@ process.env = Object.assign(process.env, {
   LOG_DIR: '../../logs',
   ORIGIN: "*",
   CREDENTIALS: true,
-  POSTGRESQLCONNSTR_HOST: 'localhost',
-  POSTGRESQLCONNSTR_USER: 'postgres',
-  POSTGRESQLCONNSTR_PORT: 5432,
-  POSTGRESQLCONNSTR_DB: 'dev',
-  POSTGRESQLCONNSTR_PASSWORD: 'password'
+  DB_HOST: 'localhost',
+  DB_USER: 'postgres',
+  DB_PORT: 5432,
+  DB_DB: 'dev',
+  DB_PASSWORD: 'password'
 });

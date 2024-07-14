@@ -28,15 +28,32 @@ A directory `node_modules` will be created containing all the necessary dependen
 
 ### .env Files
 
-**Reach out to doowan to receive the proper .env files.** This is required in order to develop.<br>
-Once obtained, place the .env files in the project root directory.
+In the root directory, create a `.env.development` file with the following content:
 
-To allow tests to run as your Linux user to access the log directory, make sure that .env.dev contains the following two lines:
 ```
-CHANGE_LOG_OWNER = true
-LOG_OWNER_UID = 1000
+# NODE
+NODE_ENV = development
+
+# PORT
+PORT = 5000
+
+# LOG
+LOG_FORMAT = dev
+LOG_DIR = logs
+
+# CORS
+ORIGIN = *
+CREDENTIALS = true
+
+# DATABASE
+DB_HOST = localhost
+DB_USER = postgres
+DB_PORT = 5432
+DB_DB = dev
+DB_PASSWORD = password
 ```
-1000 is the uid of the default user on wsl, but if your uid is different then you will need to change that in .env.dev.
+
+This is required to develop locally.<br>
 
 ### Launching the Server
 
@@ -45,7 +62,7 @@ Install Docker desktop. The Makefile executes the Docker commands to create a lo
 $ make up
 ```
 
-This will create a local server, postgreSQL database, and a nginx proxy on your computer. To verify that the container is running, run:
+This will create a local server and postgreSQL database on your computer. To verify that the container is running, run:
 ```
 $ docker ps
 ```

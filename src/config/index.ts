@@ -3,11 +3,11 @@ import { config } from "dotenv";
 config({ path: `.env.${process.env.NODE_ENV || "dev"}` });
 
 export const CREDENTIALS = process.env.CREDENTIALS === "true";
-export const { NODE_ENV, PORT, SECRET_KEY, LOG_FORMAT, LOG_DIR, ORIGIN } = process.env;
+export const { NODE_ENV, NODE_DEV, PORT, SECRET_KEY, LOG_FORMAT, LOG_DIR, ORIGIN } = process.env;
 export const {
-  POSTGRESQLCONNSTR_USER,
-  POSTGRESQLCONNSTR_PASSWORD,
-  POSTGRESQLCONNSTR_HOST,
-  POSTGRESQLCONNSTR_PORT,
-  POSTGRESQLCONNSTR_DB,
+  DB_USER,
+  DB_PASSWORD,
+  DB_HOST,
+  DB_PORT,
+  DB_DB,
 } = process.env;
